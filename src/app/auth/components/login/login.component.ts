@@ -12,7 +12,7 @@ export class LoginComponent {
   constructor(private router:Router) {
   }
   proceedAfterLogin() {
-    this.router.navigate(['register'])
+    this.router.navigate(['viewNotes'])
   }
 
   createAccount() {

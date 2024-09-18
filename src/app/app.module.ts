@@ -10,6 +10,13 @@ import { NoteEditorComponent } from './note-editor/note-editor.component';
 import { NoteViewerComponent } from './note-viewer/note-viewer.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { SignupComponent } from './auth/components/signup/signup.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+
+
 
 @NgModule({
   declarations: [
@@ -24,7 +31,13 @@ import { SignupComponent } from './auth/components/signup/signup.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

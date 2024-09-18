@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class SignupComponent {
 
+  constructor(private router:Router) {
+  }
+
+  proceedAfterSignUp() {
+    this.router.navigate(['viewNotes'])
+  }
+
+
+  backToLogin() {
+    this.router.navigate(['login'])
+  }
 }

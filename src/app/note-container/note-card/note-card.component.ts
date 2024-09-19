@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteCardComponent} from "../delete-card/delete-card.component";
-import {CreateCardComponent} from "../create-card/create-card.component";
+
 
 @Component({
   selector: 'app-note-card',

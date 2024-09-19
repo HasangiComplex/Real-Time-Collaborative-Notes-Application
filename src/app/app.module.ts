@@ -24,6 +24,7 @@ import { NoteCardComponent } from './note-container/note-card/note-card.componen
 import { CreateCardComponent } from './note-container/create-card/create-card.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
+import { DeleteCardComponent } from './note-container/delete-card/delete-card.component';
 
 
 
@@ -39,7 +40,8 @@ import {MatSelectModule} from "@angular/material/select";
     SignupComponent,
     NoteContainerComponent,
     NoteCardComponent,
-    CreateCardComponent
+    CreateCardComponent,
+    DeleteCardComponent
   ],
   imports: [
     BrowserModule,

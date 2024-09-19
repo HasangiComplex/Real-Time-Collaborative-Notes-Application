@@ -14,7 +14,7 @@
 
     <mat-card-title>Chihuahua</mat-card-title>   |
     <button class="edit" [routerLink]="['/edit', 1]" >Edit</button>
-    <button class="delete">Delete</button>
+    <button class="delete" (click)="addNote()">Delete</button>
   </mat-card-header>
   <mat-card-content>
     <p>{{longText}}</p>
@@ -36,7 +36,7 @@
 
     <mat-card-title>Chihuahua</mat-card-title>   |
     <button class="edit" [routerLink]="['/edit', 1]" >Edit</button>
-    <button class="delete" (click)="deleteNote()" >Delete</button>
+    <button class="delete" (click)="addNote()" >Delete</button>
   </mat-card-header>
   <mat-card-content>
     <p>{{longText}}</p>
@@ -56,7 +56,7 @@
 
     <mat-card-title>Chihuahua</mat-card-title>   |
     <button class="edit" [routerLink]="['/edit', 1]"  >Edit</button>
-    <button class="delete">Delete</button>
+    <button class="delete" (click)="addNote()">Delete</button>
   </mat-card-header>
   <mat-card-content>
     <p>{{longText}}</p>

@@ -11,7 +11,6 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:SignupComponent},
   {path:'viewNotes',component:NoteContainerComponent},
-  {path:'viewNotes',component:NoteListComponent},
   {path:'listNotes',component:NoteListComponent},
   {path:'edit/:id',component:NoteEditorComponent}
 

@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./note-editor.component.scss']
 })
 export class NoteEditorComponent {
-
+  editorContent: string = '';
+  onContentChange(event: any) {
+    this.editorContent = event.target.innerHTML;  // Capture HTML content
+    console.log(this.editorContent);  // Process or save content
+  }
 }

@@ -1,1 +1,12 @@
-<p>note-editor works!</p>
+
+<div class="example-button-row">
+
+  <button mat-raised-button color="primary">Share</button>
+
+</div>
+
+
+    <div contenteditable="true" class="text-editor" (input)="onContentChange($event)">
+      Start typing here...
+    </div>
+

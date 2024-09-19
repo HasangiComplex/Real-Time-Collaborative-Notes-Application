@@ -4,6 +4,7 @@ import {LoginComponent} from "./auth/components/login/login.component";
 import {SignupComponent} from "./auth/components/signup/signup.component";
 import {NoteListComponent} from "./note-container/note-list/note-list.component";
 import {NoteContainerComponent} from "./note-container/note-container.component";
+import {NoteEditorComponent} from "./note-container/note-editor/note-editor.component";
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -11,7 +12,8 @@ const routes: Routes = [
   {path:'register',component:SignupComponent},
   {path:'viewNotes',component:NoteContainerComponent},
   {path:'viewNotes',component:NoteListComponent},
-  {path:'listNotes',component:NoteListComponent}
+  {path:'listNotes',component:NoteListComponent},
+  {path:'edit/:id',component:NoteEditorComponent}
 
 
 

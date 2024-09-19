@@ -8,7 +8,7 @@ import {CreateCardComponent} from "./create-card/create-card.component";
   styleUrls: ['./note-container.component.scss']
 })
 export class NoteContainerComponent {
-  editorContent: string = '';
+
   constructor(private dialog: MatDialog) {}
   addNote(): void {
     const dialogRef = this.dialog.open(CreateCardComponent, {
@@ -24,8 +24,5 @@ export class NoteContainerComponent {
 
 
 
-  onContentChange(event: any) {
-    this.editorContent = event.target.innerHTML;  // Capture HTML content
-    console.log(this.editorContent);  // Process or save content
-  }
+
 }

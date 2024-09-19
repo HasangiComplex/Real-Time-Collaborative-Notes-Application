@@ -5,6 +5,14 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span>Notes</span>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Type to search" [(ngModel)]="searchQuery" />
+  </mat-form-field>
+
+
+
   <span class="example-spacer"></span>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with bell icon">
     <mat-icon>notifications</mat-icon>
@@ -15,7 +23,6 @@
 </mat-toolbar>
 
 <mat-grid-list cols="2" >
-
   <mat-grid-tile>
     <div>
       <div class="example-button-container">
@@ -30,50 +37,9 @@
         </div>
       </div>
 
-
-<!--      <mat-list>-->
-<!--        <div mat-subheader>Note List</div>-->
-<!--        <mat-list-item>-->
-<!--          <mat-icon matListItemIcon>note</mat-icon>-->
-<!--          <div matListItemTitle>Note 1</div>-->
-<!--          <div matListItemLine>Feb 20, 2024</div>-->
-<!--        </mat-list-item>-->
-<!--        <mat-list-item>-->
-<!--          <mat-icon matListItemIcon>note</mat-icon>-->
-<!--          <div matListItemTitle>Note 2</div>-->
-<!--          <div matListItemLine>Feb 20, 2024</div>-->
-<!--        </mat-list-item>-->
-<!--        <mat-list-item>-->
-<!--          <mat-icon matListItemIcon>note</mat-icon>-->
-<!--          <div matListItemTitle>Note 3</div>-->
-<!--          <div matListItemLine>Feb 20, 2024</div>-->
-<!--        </mat-list-item>-->
-<!--        <mat-list-item>-->
-<!--          <mat-icon matListItemIcon>note</mat-icon>-->
-<!--          <div matListItemTitle>Note 1</div>-->
-<!--          <div matListItemLine>Feb 20, 2024</div>-->
-<!--        </mat-list-item>-->
-<!--        <mat-list-item>-->
-<!--          <mat-icon matListItemIcon>note</mat-icon>-->
-<!--          <div matListItemTitle>Note 2</div>-->
-<!--          <div matListItemLine>Feb 20, 2024</div>-->
-<!--        </mat-list-item>-->
-<!--        <mat-list-item>-->
-<!--          <mat-icon matListItemIcon>note</mat-icon>-->
-<!--          <div matListItemTitle>Note 3</div>-->
-<!--          <div matListItemLine>Feb 20, 2024</div>-->
-<!--        </mat-list-item>-->
-<!--      </mat-list>-->
-
       <app-note-card></app-note-card>
     </div>
   </mat-grid-tile>
-
-
-
-
-
-
 </mat-grid-list>
 
 

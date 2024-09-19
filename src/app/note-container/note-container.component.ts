@@ -8,6 +8,7 @@ import {CreateCardComponent} from "./create-card/create-card.component";
   styleUrls: ['./note-container.component.scss']
 })
 export class NoteContainerComponent {
+  searchQuery: string = '';
 
   constructor(private dialog: MatDialog) {}
   addNote(): void {
@@ -22,7 +23,10 @@ export class NoteContainerComponent {
     });
   }
 
-
+  onSearch() {
+    // Handle the search logic here
+    console.log('Search query:', this.searchQuery);
+  }
 
 
 }

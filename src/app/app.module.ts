@@ -5,12 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './auth/auth.component';
-import { NoteListComponent } from './note-list/note-list.component';
-import { NoteEditorComponent } from './note-editor/note-editor.component';
-import { NoteViewerComponent } from './note-viewer/note-viewer.component';
+import { NoteListComponent } from './note-container/note-list/note-list.component';
+import { NoteEditorComponent } from './note-container/note-editor/note-editor.component';
+import { NoteViewerComponent } from './note-container/note-viewer/note-viewer.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { SignupComponent } from './auth/components/signup/signup.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
@@ -19,6 +19,11 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatListModule} from "@angular/material/list";
 import { NoteContainerComponent } from './note-container/note-container.component';
+import {MatGridListModule} from "@angular/material/grid-list";
+import { NoteCardComponent } from './note-container/note-card/note-card.component';
+import { CreateCardComponent } from './note-container/create-card/create-card.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -31,7 +36,9 @@ import { NoteContainerComponent } from './note-container/note-container.componen
     NoteViewerComponent,
     LoginComponent,
     SignupComponent,
-    NoteContainerComponent
+    NoteContainerComponent,
+    NoteCardComponent,
+    CreateCardComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,11 @@ import { NoteContainerComponent } from './note-container/note-container.componen
     MatIconModule,
     MatChipsModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    MatDialogModule,
+    FormsModule,
+    MatSelectModule
 
   ],
   providers: [],

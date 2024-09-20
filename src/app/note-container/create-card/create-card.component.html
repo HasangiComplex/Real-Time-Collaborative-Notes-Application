@@ -1,26 +1,40 @@
 <h1 mat-dialog-title>Note</h1>
-<form class="example-form">
+<form class="example-form" [formGroup]="createNoteForm">
   <mat-form-field class="example-full-width">
     <mat-label>Note Title</mat-label>
-    <input matInput placeholder="Enter your title" value="Title Goes here">
+    <input matInput placeholder="Enter your title" value="Title Goes here" formControlName="title">
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Tags</mat-label>
-    <mat-select [formControl]="tags" multiple>
-      <mat-select-trigger>
-        {{tags.value?.[0] || ''}}
-        <span *ngIf="(tags.value?.length || 0) > 1" class="example-additional-selection">
-        (+{{(tags.value?.length || 0) - 1}} {{tags.value?.length === 2 ? 'other' : 'others'}})
-      </span>
-      </mat-select-trigger>
-      <mat-option *ngFor="let taggings of tagsList" [value]="taggings">{{taggings}}</mat-option>
-    </mat-select>
+  <mat-form-field class="example-full-width">
+    <mat-label>Enter a description</mat-label>
+    <textarea matInput placeholder="Ex. The description is..." formControlName="description"></textarea>
   </mat-form-field>
 
+
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Add Tags</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter tag">
+      <mat-chip-row *ngFor="let tag of tags"
+                    (removed)="removeTag(tag)"
+                    [editable]="true"
+                    (edited)="editTag(tag, $event)"
+                    [aria-description]="'press enter to edit ' + tag.name">
+        {{tag.name}}
+        <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      <input placeholder="New tag..."
+             [matChipInputFor]="chipGrid"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="addTag($event)"/>
+    </mat-chip-grid>
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onConfirm()">Add</button>
+    <button mat-button mat-dialog-close>Close</button>
+
+  </div>
 </form>
-<div mat-dialog-actions>
-  <button mat-button (click)="onConfirm()">Add</button>
-  <button mat-button mat-dialog-close>Close</button>
 
-</div>

@@ -1,6 +1,8 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteCardComponent} from "../delete-card/delete-card.component";
+import {map, Observable} from "rxjs";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 
 @Component({
@@ -8,18 +10,40 @@ import {DeleteCardComponent} from "../delete-card/delete-card.component";
   templateUrl: './note-card.component.html',
   styleUrls: ['./note-card.component.scss']
 })
-export class NoteCardComponent {
+export class NoteCardComponent implements OnInit{
   longText = `The Chihuahua is a Mexican breed of toy dog. It is named for the
   Mexican state of Chihuahua and is among the smallest of all dog breeds. It is
   usually kept as a companion animal or for showing.`;
 
   @Output() delete: EventEmitter<void> = new EventEmitter<void>();
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog , private db: AngularFireDatabase) {}
 
-  deleteNote() {
-    window.confirm(
-      'Are you sure you want to delete this note?'
-    ) && this.delete.emit();
+
+  ngOnInit(): void {
+    // // Retrieve the notes from Firebase
+    // this.notes$ = this.db.list('notes').valueChanges();
+    //
+    // console.log("These are the notes:",this.notes$)
+
+
+    // Retrieve the notes from Firebase, ensuring that payload is an object
+    this.notes$ = this.db.list('notes').snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => {
+          const note = c.payload.val();
+          return { id: c.payload.key, ...(note || {}) }; // Spread only if note is not null
+        })
+      )
+    );
+  }
+
+  // Method to delete a note from Firebase
+  deleteNote(noteId: string): void {
+    this.db.list('notes').remove(noteId).then(() => {
+      console.log('Note deleted successfully');
+    }).catch(error => {
+      console.error('Error deleting note:', error);
+    });
   }
 
 
@@ -44,4 +68,14 @@ export class NoteCardComponent {
       }
     });
   }
+
+
+
+
+
+  notes$: Observable<any[]> | undefined;
+
+
+
+
 }

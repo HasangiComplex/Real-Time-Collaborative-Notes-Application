@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +24,9 @@ import { CreateCardComponent } from './note-container/create-card/create-card.co
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
 import { DeleteCardComponent } from './note-container/delete-card/delete-card.component';
-
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 
 
 
@@ -58,7 +59,20 @@ import { DeleteCardComponent } from './note-container/delete-card/delete-card.co
     MatGridListModule,
     MatDialogModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    AngularFireModule.initializeApp(
+      {
+        apiKey: "AIzaSyDn5ZScBvG-goRbP4sZoY_Fx-sHXG8fP0M",
+        authDomain: "collaborative-note-app-3c358.firebaseapp.com",
+        databaseURL: "https://collaborative-note-app-3c358-default-rtdb.firebaseio.com/",
+        projectId: "collaborative-note-app-3c358",
+        storageBucket: "collaborative-note-app-3c358.appspot.com",
+        messagingSenderId: "125625170579",
+        appId: "1:125625170579:web:688156179186a14c34ab66"
+      }),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
+
 
   ],
   providers: [],

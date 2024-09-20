@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {Observable} from "rxjs";
 
 
 export interface Section {
@@ -11,7 +13,7 @@ export interface Section {
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.scss']
 })
-export class NoteListComponent {
+export class NoteListComponent  {
   notes: Section[] = [
     {
       name: 'Vacation Itinerary',
@@ -22,4 +24,15 @@ export class NoteListComponent {
       updated: new Date('1/18/16'),
     },
   ];
+
+  // notes$: Observable<any[]> | undefined;
+  //
+  // constructor(private db: AngularFireDatabase) { }
+  //
+  // ngOnInit(): void {
+  //   // Retrieve the notes from Firebase
+  //   this.notes$ = this.db.list('notes').valueChanges();
+  //
+  //   console.log("These are the notes:",this.notes$)
+  // }
 }

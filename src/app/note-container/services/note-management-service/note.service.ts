@@ -28,6 +28,16 @@ export class NoteService {
     );
   }
 
+  // Retrieve a note by its id
+  getNoteById(id: string): Observable<any> {
+    return this.db.object(`notes/${id}`).snapshotChanges().pipe(
+      map(c => {
+        const note = c.payload.val();
+        return { id: c.payload.key, ...(note || {}) }; // Spread only if note is not null
+      })
+    );
+  }
+
   // Update a note
   updateNote(noteId: string, noteData: any): Promise<void> {
     return this.db.list('notes').update(noteId, noteData)

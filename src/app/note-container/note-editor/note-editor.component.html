@@ -1,10 +1,12 @@
 <div class="example-button-row">
   <button color="primary" mat-raised-button>Share</button>
 </div>
-
-
+<div *ngIf="note">
+  <h1>Note Title: {{ note.title }}</h1>
+  <p>{{ note.content }}</p>
+</div>
 <div (input)="onContentChange($event)" class="text-editor" contenteditable="true">
-  Start typing here...
+{{ note.description === '' ? "Start typing here..." : note.description }}
 </div>
 
 

@@ -3,7 +3,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DeleteCardComponent} from "../delete-card/delete-card.component";
 import {map, Observable} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {NoteService} from "../services/note.service";
+import {NoteService} from "../services/note-management-service/note.service";
 
 
 @Component({
@@ -17,26 +17,9 @@ export class NoteCardComponent implements OnInit{
   constructor(public dialog: MatDialog , private db: AngularFireDatabase , private noteService: NoteService) {}
 
   ngOnInit(): void {
-    // // Retrieve the notes from Firebase, ensuring that payload is an object
-    // this.notes$ = this.db.list('notes').snapshotChanges().pipe(
-    //   map(changes =>
-    //     changes.map(c => {
-    //       const note = c.payload.val();
-    //       return { id: c.payload.key, ...(note || {}) }; // Spread only if note is not null
-    //     })
-    //   )
-    // );
     this.notes$ = this.noteService.getNotes(); // Fetch notes from the service
   }
 
-  // // Method to delete a note from Firebase
-  // deleteNote(noteId: string): void {
-  //   this.db.list('notes').remove(noteId).then(() => {
-  //     console.log('Note deleted successfully');
-  //   }).catch(error => {
-  //     console.error('Error deleting note:', error);
-  //   });
-  // }
   deleteNote(noteId: string): void {
     this.noteService.deleteNote(noteId).then(() => {
       console.log('Note deleted successfully');

@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {MatChipEditedEvent, MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {NoteService} from "../services/note.service";
+import {NoteService} from "../services/note-management-service/note.service";
 
 
 export interface TagsList {
@@ -22,40 +22,29 @@ export class CreateCardComponent {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: TagsList[] = [];
 
-  constructor(public dialogRef: MatDialogRef<CreateCardComponent> ,
-              private fb: FormBuilder ,
+  constructor(public dialogRef: MatDialogRef<CreateCardComponent>,
+              private fb: FormBuilder,
               private db: AngularFireDatabase,
-              private noteService: NoteService) {}
+              private noteService: NoteService) {
+  }
 
   createNoteForm = this.fb.group({
-    title: ['Title Goes here',Validators.required],
+    title: ['Title Goes here', Validators.required],
     description: [''],
     tags: [[] as TagsList[]],
   })
 
   onConfirm(): void {
-   // this.dialogRef.close(true); // Passes data to the parent if needed
+    // this.dialogRef.close(true); // Passes data to the parent if needed
     const noteData = {
       title: this.createNoteForm.value.title,
       description: this.createNoteForm.value.description,
       tags: this.tags.map(tag => tag.name)
     };
-
-    // // Save to Firebase Realtime Database
-    // this.db.list('notes').push(noteData)
-    //   .then(() => {
-    //     console.log('Note added successfully!');
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error adding note: ', error);
-    //   });
-
-    this.noteService.createNote(noteData).then(()=>{
+    this.noteService.createNote(noteData).then(() => {
       this.dialogRef.close(true)
     })
   }
-
-
 
   // Add new tag
   addTag(event: MatChipInputEvent): void {
@@ -65,7 +54,6 @@ export class CreateCardComponent {
     if (value) {
       this.tags.push({name: value});
     }
-
     // Update the form control for tags
     this.createNoteForm.get('tags')?.setValue(this.tags);
     // Clear the input value

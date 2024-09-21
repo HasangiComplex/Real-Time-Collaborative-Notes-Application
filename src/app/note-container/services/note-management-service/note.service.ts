@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {map, Observable} from 'rxjs';
 
@@ -6,20 +6,8 @@ import {map, Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class NoteService {
-  // constructor(private db: AngularFireDatabase) {}
-  //
-  // getNotes(): Observable<any> {
-  //   return this.db.list('notes').valueChanges();
-  // }
-  //
-  // getNoteById(noteId: string): Observable<any> {
-  //   return this.db.object(`notes/${noteId}`).valueChanges();
-  // }
-  //
-  // updateNote(noteId: string, content: string) {
-  //   return this.db.object(`notes/${noteId}`).update({ content });
-  // }
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase) {
+  }
 
   // Create a new note
   createNote(noteData: any): Promise<void> {
@@ -34,7 +22,7 @@ export class NoteService {
       map(changes =>
         changes.map(c => {
           const note = c.payload.val();
-          return { id: c.payload.key, ...(note || {}) }; // Spread only if note is not null
+          return {id: c.payload.key, ...(note || {})}; // Spread only if note is not null
         })
       )
     );
@@ -53,12 +41,6 @@ export class NoteService {
       .then(() => console.log('Note deleted successfully'))
       .catch(error => console.error('Error deleting note:', error));
   }
-
-
-
-
-
-
 
 
 }

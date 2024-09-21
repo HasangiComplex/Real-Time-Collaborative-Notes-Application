@@ -11,21 +11,11 @@ import {AngularFireDatabase} from "@angular/fire/compat/database";
   styleUrls: ['./note-card.component.scss']
 })
 export class NoteCardComponent implements OnInit{
-  longText = `The Chihuahua is a Mexican breed of toy dog. It is named for the
-  Mexican state of Chihuahua and is among the smallest of all dog breeds. It is
-  usually kept as a companion animal or for showing.`;
-
   @Output() delete: EventEmitter<void> = new EventEmitter<void>();
+  notes$: Observable<any[]> | undefined;
   constructor(public dialog: MatDialog , private db: AngularFireDatabase) {}
 
-
   ngOnInit(): void {
-    // // Retrieve the notes from Firebase
-    // this.notes$ = this.db.list('notes').valueChanges();
-    //
-    // console.log("These are the notes:",this.notes$)
-
-
     // Retrieve the notes from Firebase, ensuring that payload is an object
     this.notes$ = this.db.list('notes').snapshotChanges().pipe(
       map(changes =>
@@ -56,7 +46,6 @@ export class NoteCardComponent implements OnInit{
   }
 
   addNote(): void {
-
     console.log("clicked delete")
     const dialogRef = this.dialog.open(DeleteCardComponent, {
       width: '300px',
@@ -73,7 +62,7 @@ export class NoteCardComponent implements OnInit{
 
 
 
-  notes$: Observable<any[]> | undefined;
+
 
 
 

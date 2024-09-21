@@ -6,7 +6,9 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './note-editor.component.html',
   styleUrls: ['./note-editor.component.scss']
 })
-export class NoteEditorComponent{
+export class NoteEditorComponent implements OnInit{
+  ngOnInit(): void {
+  }
   editorContent: string = '';
   onContentChange(event: any) {
     this.editorContent = event.target.innerHTML;  // Capture HTML content

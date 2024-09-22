@@ -1,28 +1,41 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {AuthorizedUserService} from "../services/user-management-service/authorized-user.service";
+import {User} from "../note-interfaces/user";
 
 @Component({
   selector: 'app-share-note',
   templateUrl: './share-note.component.html',
   styleUrls: ['./share-note.component.scss']
 })
-export class ShareNoteComponent {
+export class ShareNoteComponent implements OnInit{
 
-  authorizedUserList: string[] = ['vvcJ7pJnFKRqlUxU5THRasWENd22', 'akb4Ob34jXRTECs7xjMqorRiDOY2', 'NB5Hez3cxpQOvObZvodjIgzt20L2', 'x3zcjMGu15ZB0CM5sHsciwRBS003', 'eFwh1yJyXwMJwhmRCxO939Fpval2'];
+  authorizedUserList: { id: string | null; userData: User }[] = [];
   shareNoteForm: FormGroup;
 
   constructor(private fb: FormBuilder,
               private db: AngularFireDatabase,
-              @Inject(MAT_DIALOG_DATA) public data: { noteId: string }
+              @Inject(MAT_DIALOG_DATA) public data: { noteId: string },
+              private authorizedUserService:AuthorizedUserService
   ) {
     this.shareNoteForm = this.fb.group({
-
-
       selectedUsers: [[]]  // Starts with an empty array for multi-select options
     });
   }
+
+  ngOnInit(): void {
+    this.authorizedUserService.getAuthorizedUsers().subscribe(users => {
+      this.authorizedUserList = users.filter(user => user.id !== null); // Filter out null IDs
+    });
+    }
+
+
+
+
+
+
 
   shareForUser() {
     const selectedUsers = this.shareNoteForm.get('selectedUsers')?.value;

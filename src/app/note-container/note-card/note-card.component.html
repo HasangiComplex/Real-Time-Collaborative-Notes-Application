@@ -1,0 +1,30 @@
+<div *ngIf="notes$ | async as notes; else loading">
+  <ng-container *ngFor="let note of notes">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-icon matListItemIcon>note</mat-icon>
+      <mat-card-header>
+        <mat-card-title>{{ note.title }}</mat-card-title>
+        <div class="actions">
+          <button class="edit" [routerLink]="['/edit', note.id]">Edit</button>
+          <button class="delete" (click)="deleteNote(note.id)">Delete</button>
+          <button class="share" >Share</button>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>{{ note.description }}</p>
+      </mat-card-content>
+
+      <mat-card-footer class="example-card-footer">
+        <mat-chip-set aria-label="Note tags">
+          <mat-chip *ngFor="let tag of note.tags">{{ tag }}</mat-chip>
+        </mat-chip-set>
+      </mat-card-footer>
+    </mat-card>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <p>Loading notes...</p>
+</ng-template>
+

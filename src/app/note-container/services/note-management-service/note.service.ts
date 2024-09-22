@@ -22,32 +22,63 @@ export class NoteService {
       .catch((error) => console.error('Error adding note: ', error));
   }
 
-// //  Retrieve all notes
-//   getNotes(): Observable<any[]> {
-//     return this.db.list('notes').snapshotChanges().pipe(
-//       map(changes =>
-//         changes.map(c => {
-//           const note = c.payload.val();
-//           return {id: c.payload.key, ...(note || {})}; // Spread only if note is not null
-//         })
-//       )
-//     );
-//   }
 
+  // getNotes(): Observable<any[]> {
+  //   return this.userId$.pipe(
+  //     switchMap(userId => {
+  //       // Retrieve all notes
+  //       return this.db.list('notes').snapshotChanges().pipe(
+  //         map(changes =>
+  //           changes.map(c => {
+  //             const note: any = c.payload.val();
+  //             const sharedUsers = note?.shared_users || {}; // Adjusted key to match your structure
+  //             const createdByUser = note.created_user === userId;
+  //             const sharedWithUser = Object.values(sharedUsers).includes(userId);
+  //
+  //             // Return the note if created by the user or shared with the user
+  //             if (createdByUser || sharedWithUser) {
+  //               return { id: c.payload.key, ...(note || {}) };
+  //             } else {
+  //               return null; // Exclude this note
+  //             }
+  //           }).filter(note => note !== null) // Filter out null notes
+  //         )
+  //       );
+  //     })
+  //   );
+  // }
 
   getNotes(): Observable<any[]> {
     return this.userId$.pipe(
-      switchMap(userId =>
-        this.db.list('notes', ref => ref.orderByChild('created_user').equalTo(userId)).snapshotChanges()
-      ),
-      map(changes =>
-        changes.map(c => {
-          const note: any = c.payload.val(); // Explicitly typing note as any to avoid errors
-          const sharedUsers = note?.shared_users || {}; // Default to empty object if shared_users doesn't exist
+      switchMap(userId => {
+        return this.db.list('notes').snapshotChanges().pipe(
+          map(changes =>
+            changes.map(c => {
+              const note: any = c.payload.val();
+              const sharedUsers = note?.shared_users || {};
+              const createdByUser = note.created_user === userId;
+              const sharedWithUser = Object.values(sharedUsers).includes(userId);
 
-          return { id: c.payload.key, ...(note || {}) };
-        })
-      )
+              // Create the note object with boolean flags
+              const noteWithFlags = {
+                id: c.payload.key,
+                ...(note || {}),
+                sharedOthers: Object.keys(sharedUsers).length > 0,
+                sharedWithMe: sharedWithUser,
+              };
+
+              // Return the note object
+              return { noteWithFlags, createdByUser, sharedWithUser };
+            })
+          )
+        ).pipe(
+          map(noteData =>
+            noteData
+              .filter(({ createdByUser, sharedWithUser }) => createdByUser || sharedWithUser)
+              .map(({ noteWithFlags }) => noteWithFlags)
+          )
+        );
+      })
     );
   }
 

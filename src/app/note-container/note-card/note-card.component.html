@@ -42,10 +42,22 @@
           <button class="edit" [routerLink]="['/edit', note.id]">Edit</button>
           <button class="delete" (click)="deleteNote(note.id)">Delete</button>
           <button class="share" (click)="openShareForUserView(note.id)">Share</button>
+
         </div>
       </mat-card-header>
 
       <mat-card-content>
+
+        <div *ngIf="note?.sharedOthers">
+          <button mat-raised-button color="primary"
+                  matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+           Shared with others
+          </button>
+        </div>
+
+        <div *ngIf="note?.sharedWithMe">
+          <button mat-stroked-button color="accent">Shared With me</button>
+        </div>
         <p>{{ note.description }}</p>
       </mat-card-content>
 

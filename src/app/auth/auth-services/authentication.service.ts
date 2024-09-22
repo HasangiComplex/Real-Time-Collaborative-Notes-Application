@@ -75,28 +75,6 @@ export class AuthenticationService {
       });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
   type SignIn = {
     email: string;

@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteCardComponent} from "../delete-card/delete-card.component";
 import {map, Observable} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {NoteService} from "../services/note-management-service/note.service";
 import {ShareNoteComponent} from "../share-note/share-note.component";
+import {FilterByTagPipe} from "../../pipes/filter-by-tag.pipe";
 
 
 @Component({
@@ -13,9 +14,14 @@ import {ShareNoteComponent} from "../share-note/share-note.component";
   styleUrls: ['./note-card.component.scss']
 })
 export class NoteCardComponent implements OnInit{
+  @Input() searchQuery: string = '';
   @Output() delete: EventEmitter<void> = new EventEmitter<void>();
   notes$: Observable<any[]> | undefined;
-  constructor(public dialog: MatDialog , private db: AngularFireDatabase , private noteService: NoteService) {}
+  constructor(public dialog: MatDialog ,
+              private db: AngularFireDatabase ,
+              private noteService: NoteService,
+
+  ) {}
 
   ngOnInit(): void {
     this.notes$ = this.noteService.getNotes(); // Fetch notes from the service

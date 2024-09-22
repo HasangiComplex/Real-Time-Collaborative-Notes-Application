@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {CreateCardComponent} from "./create-card/create-card.component";
 import {AuthenticationService} from "../auth/auth-services/authentication.service";
@@ -14,7 +14,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./note-container.component.scss']
 })
 export class NoteContainerComponent implements OnInit{
+  @Output() searchQueryChange = new EventEmitter<string>();
   searchQuery: string = '';
+
 
   constructor(private router:Router,private dialog: MatDialog , private auth: AngularFireAuth,private store: Store<AuthState>) {}
   ngOnInit(): void {
@@ -43,9 +45,9 @@ export class NoteContainerComponent implements OnInit{
     });
   }
 
-  onSearch() {
+  onSearchChange(query: string) {
     // Handle the search logic here
-    console.log('Search query:', this.searchQuery);
+    this.searchQuery = query;
   }
 
 

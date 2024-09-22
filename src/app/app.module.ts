@@ -32,6 +32,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {authReducer} from "./states/auth.reducer";
 import { ShareNoteComponent } from './note-container/share-note/share-note.component';
+import { FilterByTagPipe } from './pipes/filter-by-tag.pipe';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { ShareNoteComponent } from './note-container/share-note/share-note.compo
     NoteCardComponent,
     CreateCardComponent,
     DeleteCardComponent,
-    ShareNoteComponent
+    ShareNoteComponent,
+    FilterByTagPipe
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Note</h1>
+<form class="example-form"  [formGroup]="shareNoteForm" >
+  <mat-form-field class="example-full-width">
+    <p>Select a Collaborator</p>
+    <mat-select formControlName="selectedUsers"  multiple>
+      <mat-option *ngFor="let user of authorizedUserList" [value]="user">{{user}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="shareForUser()" >Share</button>
+    <button mat-button mat-dialog-close>Close</button>
+
+  </div>
+
+</form>
+
+<!--<mat-select [formControl]="toppings" multiple>-->
+<!--  <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>-->
+<!--</mat-select>-->

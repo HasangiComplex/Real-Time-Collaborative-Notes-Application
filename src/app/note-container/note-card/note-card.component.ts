@@ -4,6 +4,7 @@ import {DeleteCardComponent} from "../delete-card/delete-card.component";
 import {map, Observable} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {NoteService} from "../services/note-management-service/note.service";
+import {ShareNoteComponent} from "../share-note/share-note.component";
 
 
 @Component({
@@ -48,12 +49,17 @@ export class NoteCardComponent implements OnInit{
   }
 
 
+  openShareForUserView(noteId: string) {
+    console.log('Dialog Open Triggered with noteId:', noteId);
+    const dialogRef = this.dialog.open(ShareNoteComponent, {
+      width: '300px',
+      data: { noteId: noteId } // Passing the noteId as data to the dialog
+    });
 
-
-
-
-
-
-
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('User confirmed:', result);
+      }
+    });
+  }
 }

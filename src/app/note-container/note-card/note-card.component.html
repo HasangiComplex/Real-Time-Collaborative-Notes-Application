@@ -7,7 +7,8 @@
         <div class="actions">
           <button class="edit" [routerLink]="['/edit', note.id]">Edit</button>
           <button class="delete" (click)="deleteNote(note.id)">Delete</button>
-          <button class="share" >Share</button>
+          <button class="share" (click)="openShareForUserView(note.id)">Share</button>
+
         </div>
       </mat-card-header>
 

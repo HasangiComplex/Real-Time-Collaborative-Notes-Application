@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NoteService} from "../services/note-management-service/note.service";
-
+import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 
 @Component({
@@ -17,15 +17,28 @@ export class NoteEditorComponent implements OnInit{
 
   constructor(private route: ActivatedRoute ,
               private noteService: NoteService ,
+              private auth: AngularFireAuth,
+              private router:Router
               ) {}
 
-
   ngOnInit(): void {
-    // Access the note id from the route parameters
-    this.route.paramMap.subscribe(params => {
-      this.noteId = params.get('id') as string;
-      // Fetch the note using its id
-      this.getNoteById(this.noteId);
+    this.checkAuthorization();
+
+  }
+
+  private checkAuthorization(): void {
+    this.auth.authState.subscribe(user => {
+      if (!user) {
+        this.router.navigate(['login']);
+      }else{
+        // Access the note id from the route parameters
+        this.route.paramMap.subscribe(params => {
+          this.noteId = params.get('id') as string;
+          // Fetch the note using its id
+          this.getNoteById(this.noteId);
+        });
+      }
+      // Optionally: Add further checks to determine if the user is authorized.
     });
   }
 

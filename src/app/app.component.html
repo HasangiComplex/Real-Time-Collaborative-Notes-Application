@@ -1,2 +1,10 @@
+<div *ngIf="userId$ | async as userId">
+  User ID: {{ userId }}
+</div>
+<div *ngIf="userEmail$ | async as userEmail">
+  User Email: {{ userEmail }}
+</div>
+
+
 <router-outlet></router-outlet>
 

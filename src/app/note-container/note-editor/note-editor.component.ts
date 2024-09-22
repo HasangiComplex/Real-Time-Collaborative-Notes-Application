@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {NoteService} from "../services/note-management-service/note.service";
-import * as SimplePeer from "simple-peer";
+
 
 
 @Component({
@@ -13,7 +13,7 @@ export class NoteEditorComponent implements OnInit{
   noteId!: string;
   note: any; // To store the retrieved note
   editorContent: string = '';
-  peer: SimplePeer.Instance | null = null;
+
 
   constructor(private route: ActivatedRoute ,
               private noteService: NoteService ,
@@ -27,7 +27,6 @@ export class NoteEditorComponent implements OnInit{
       // Fetch the note using its id
       this.getNoteById(this.noteId);
     });
-
   }
 
   // Fetch the note by id
@@ -40,8 +39,8 @@ export class NoteEditorComponent implements OnInit{
 
   onContentChange(event: any) {
     this.editorContent = event.target.innerHTML;  // Capture HTML content
-    console.log(this.editorContent);  // Process or save content
+    this.note.description = this.editorContent; // Update local note content
+    this.noteService.updateNoteContent(this.noteId, this.editorContent); // Save to Firebase
   }
-
 
 }

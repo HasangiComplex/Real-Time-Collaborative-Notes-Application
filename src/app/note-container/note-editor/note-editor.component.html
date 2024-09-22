@@ -3,10 +3,12 @@
 </div>
 <div *ngIf="note">
   <h1>Note Title: {{ note.title }}</h1>
-  <p>{{ note.content }}</p>
 </div>
 <div (input)="onContentChange($event)" class="text-editor" contenteditable="true">
-{{ note.description === '' ? "Start typing here..." : note.description }}
+{{note.description}}
+<!--{{ note.description === '' ? "Start typing here..." : note.description }}-->
 </div>
+
+
 
 

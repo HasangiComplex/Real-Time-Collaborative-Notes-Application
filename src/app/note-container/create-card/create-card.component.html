@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Note</h1>
+<form class="example-form" [formGroup]="createNoteForm">
+  <mat-form-field class="example-full-width">
+    <mat-label>Note Title</mat-label>
+    <input matInput placeholder="Enter your title" value="Title Goes here" formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Enter a description</mat-label>
+    <textarea matInput placeholder="Ex. The description is..." formControlName="description"></textarea>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Add Tags</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter tag">
+      <mat-chip-row *ngFor="let tag of tags"
+                    (removed)="removeTag(tag)"
+                    [editable]="true"
+                    (edited)="editTag(tag, $event)"
+                    [aria-description]="'press enter to edit ' + tag.name">
+        {{tag.name}}
+        <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      <input placeholder="New tag..."
+             [matChipInputFor]="chipGrid"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="addTag($event)"/>
+    </mat-chip-grid>
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onConfirm()">Add</button>
+    <button mat-button mat-dialog-close>Close</button>
+
+  </div>
+</form>
+

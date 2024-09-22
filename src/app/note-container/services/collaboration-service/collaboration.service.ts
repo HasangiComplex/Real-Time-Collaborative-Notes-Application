@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as SimplePeer from 'simple-peer';
-import {AngularFireDatabase} from "@angular/fire/compat/database";
-
-
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import * as SimplePeer from "simple-peer";
 
 
 @Injectable({
@@ -33,21 +31,11 @@ export class CollaborationService {
     peer.signal(signal);
   }
 
-  // Store signal data in Firebase
-  saveSignal(noteId: string, signal: any) {
-    this.db.list(`signals/${noteId}`).push(signal);
+  sendSignalToFirebase(signal: any, uid: string): void {
+    this.db.list(`signals/${uid}`).set('signal', signal);
   }
 
-  // Listen for incoming signals
-  listenForSignals(noteId: string) {
-    return this.db.list(`signals/${noteId}`).snapshotChanges().subscribe(actions => {
-      actions.forEach(action => {
-        const signal = action.payload.val();
-        if (signal) {
-          this.connectPeer(this.peers[noteId], signal); // Connect using the signal
-        }
-      });
-    });
+  clearSignal(uid: string): void {
+    this.db.list(`signals/${uid}`).remove();
   }
-
 }

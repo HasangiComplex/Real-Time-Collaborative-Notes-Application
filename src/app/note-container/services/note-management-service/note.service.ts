@@ -38,12 +38,10 @@ export class NoteService {
     );
   }
 
-  // Update a note
-  updateNote(noteId: string, noteData: any): Promise<void> {
-    return this.db.list('notes').update(noteId, noteData)
-      .then(() => console.log('Note updated successfully!'))
-      .catch((error) => console.error('Error updating note: ', error));
+  updateNoteContent(noteId: string, content: string): void {
+    this.db.object(`notes/${noteId}`).update({ description: content });
   }
+
 
   // Delete a note
   deleteNote(noteId: string): Promise<void> {

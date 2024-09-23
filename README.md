@@ -59,6 +59,7 @@ To set up the project locally:
 
     Example:
 
+    ```
     export const environment = {
     firebaseConfig: {
     apiKey: 'YOUR_API_KEY',
@@ -72,6 +73,8 @@ To set up the project locally:
     };
 
  4. Run the development server:
+
+     ```
     bash
     Copy code
     ng serve
@@ -95,6 +98,7 @@ To set up the project locally:
 
 
 ## File Structure
+  
   bash
   Copy code
   src/

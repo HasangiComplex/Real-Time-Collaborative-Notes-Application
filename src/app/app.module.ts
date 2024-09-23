@@ -4,9 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './auth/auth.component';
-import { NoteListComponent } from './note-container/note-list/note-list.component';
 import { NoteEditorComponent } from './note-container/note-editor/note-editor.component';
-import { NoteViewerComponent } from './note-container/note-viewer/note-viewer.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { SignupComponent } from './auth/components/signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -39,9 +37,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   declarations: [
     AppComponent,
     AuthComponent,
-    NoteListComponent,
     NoteEditorComponent,
-    NoteViewerComponent,
     LoginComponent,
     SignupComponent,
     NoteContainerComponent,

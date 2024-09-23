@@ -95,7 +95,6 @@ To set up the project locally:
 
 
 ## File Structure
-
   bash
   Copy code
   src/

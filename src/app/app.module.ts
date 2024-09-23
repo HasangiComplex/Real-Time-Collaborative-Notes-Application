@@ -33,7 +33,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {authReducer} from "./states/auth.reducer";
 import { ShareNoteComponent } from './note-container/share-note/share-note.component';
 import { FilterByTagPipe } from './pipes/filter-by-tag.pipe';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,8 @@ import { FilterByTagPipe } from './pipes/filter-by-tag.pipe';
     CreateCardComponent,
     DeleteCardComponent,
     ShareNoteComponent,
-    FilterByTagPipe
+    FilterByTagPipe,
+
   ],
   imports: [
     BrowserModule,
@@ -84,6 +85,7 @@ import { FilterByTagPipe } from './pipes/filter-by-tag.pipe';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forRoot({auth: authReducer}),
     MatCardModule,
+    MatSnackBarModule
 
   ],
   providers: [],

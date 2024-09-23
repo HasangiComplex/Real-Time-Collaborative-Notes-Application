@@ -6,21 +6,65 @@
       <mat-label>Email</mat-label>
       <input type="email" matInput
              placeholder="Ex. pat@example.com" formControlName="email">
+
+          <mat-error *ngIf="loginForm.get('email')!.invalid && loginForm.get('email')!.touched">
+            <div class="hint-error" *ngIf="loginForm.get('email')!.hasError('required')">Email is required.</div>
+      <!--      <span *ngIf="loginForm.get('email')!.errors?.required">Email is required.</span>-->
+      <!--      <span *ngIf="loginForm.get('email')!.errors?.email">Invalid email format.</span>-->
+          </mat-error>
+
     </mat-form-field>
 
 
     <mat-form-field class="example-full-width">
       <mat-label>Password</mat-label>
       <input matInput placeholder="Password" value="" formControlName="password">
+
     </mat-form-field>
-    <button mat-flat-button  routerLink="login" (click)="proceedAfterLogin()">Login</button>
+    <button mat-flat-button  routerLink="login" (click)="proceedAfterLogin()" [disabled]="loginForm.invalid">Login</button>
   </form>
   <div class="example-button-row">
-
     <p>Not registered yet? <span routerLink="register" (click)="createAccount()">Create Account</span></p>
-
   </div>
 </mat-card>
 
+
+<!--<form [formGroup]="loginForm" (ngSubmit)="onSubmitForLogin()">-->
+<!--  <mat-form-field appearance="outline">-->
+<!--    <mat-label>Email</mat-label>-->
+<!--    <input matInput formControlName="email" />-->
+<!--    <mat-error *ngIf="loginForm.get('email')!.invalid && loginForm.get('email')!.touched">-->
+<!--      <div class="hint-error" *ngIf="loginForm.get('email')!.hasError('required')">Email is required.</div>-->
+<!--&lt;!&ndash;      <span *ngIf="loginForm.get('email')!.errors?.required">Email is required.</span>&ndash;&gt;-->
+<!--&lt;!&ndash;      <span *ngIf="loginForm.get('email')!.errors?.email">Invalid email format.</span>&ndash;&gt;-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+
+<!--  <mat-form-field appearance="outline">-->
+<!--    <mat-label>Password</mat-label>-->
+<!--    <input matInput type="password" formControlName="password" />-->
+<!--    <mat-error *ngIf="loginForm.get('password')!.invalid && loginForm.get('password')!.touched">-->
+<!--&lt;!&ndash;      <span *ngIf="loginForm.get('password')!.errors?.required">Password is required.</span>&ndash;&gt;-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+
+<!--  <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Login</button>-->
+<!--</form>-->
+<!--  <div class="example-button-row">-->
+<!--    <p>Not registered yet? <span routerLink="register" (click)="createAccount()">Create Account</span></p>-->
+<!--  </div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<mat-toast *ngIf="showToast" [class]="toastClass">{{ toastMessage }}</mat-toast>-->
 
 

@@ -13,3 +13,12 @@
   display: table-cell;
   max-width: 600px;
 }
+.success-toast {
+  background-color: green; /* Green for success */
+  color: white;
+}
+
+.error-toast {
+  background-color: red; /* Red for errors */
+  color: white;
+}

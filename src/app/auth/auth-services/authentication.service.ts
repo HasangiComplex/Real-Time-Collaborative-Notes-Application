@@ -40,21 +40,6 @@ export class AuthenticationService {
     );
   }
 
-  // // Sign up with email/password
-  // signUp(email: string, password: string) {
-  //   return this.auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((result) => {
-  //
-  //   //     this.SendVerificationMail();
-  //   //     this.SetUserData(result.user);
-  //     })
-  //     .catch((error) => {
-  //       window.alert(error.message);
-  //     });
-  // }
-
-
   signUp(email: string, password: string) {
     return this.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {

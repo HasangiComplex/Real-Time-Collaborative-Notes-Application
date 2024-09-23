@@ -1,39 +1,23 @@
-
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button aria-label="Example icon-button with menu icon" class="example-icon" mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>
   <span>Notes</span>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Search</mat-label>
-    <input matInput placeholder="Type to search" [(ngModel)]="searchQuery" />
-  </mat-form-field>
-
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with bell icon">
+  <button aria-label="Example icon-button with bell icon" class="example-icon favorite-icon" mat-icon-button>
     <mat-icon>notifications</mat-icon>
   </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+  <div (click)="logout()" routerLink="login"><p>Logout</p></div>
 </mat-toolbar>
-
-<mat-grid-list cols="2" >
+<mat-grid-list cols="2">
   <mat-grid-tile>
     <div>
       <div class="example-button-container">
-        <button mat-mini-fab aria-label="Add note button" (click)="addNote()">
+        <button (click)="addNote()" aria-label="Add note button" mat-mini-fab>
           <mat-icon>add</mat-icon>
         </button>
-        <div class="example-button-container">
-          <button mat-fab extended aria-label="Shared button">
-            <mat-icon>share</mat-icon>
-            Shared
-          </button>
-        </div>
       </div>
-
       <app-note-card></app-note-card>
     </div>
   </mat-grid-tile>

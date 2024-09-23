@@ -1,12 +1,35 @@
 <div class="example-button-row">
-  <button color="primary" mat-raised-button>Share</button>
+  <button (click)="goBack()" color="primary" mat-raised-button>Back</button>
 </div>
 <div *ngIf="note">
-  <h1>Note Title: {{ note.title }}</h1>
+  <input (ngModelChange)="updateTitle()" [(ngModel)]="note.title" placeholder="Note Title"/>
 </div>
-<div (input)="onContentChange($event)" class="text-editor" contenteditable="true">
-{{note.description}}
-<!--{{ note.description === '' ? "Start typing here..." : note.description }}-->
+
+
+<mat-label>Update Tags</mat-label>
+<mat-chip-grid #chipGrid aria-label="Enter tag">
+  <mat-chip-row (removed)="removeTag(key.key)"
+                *ngFor="let key of (tags | keyvalue)"
+                [editable]="true">
+    {{key.value}} <!-- Display the tag value -->
+    <button [attr.aria-label]="'remove ' + key.value" matChipRemove>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip-row>
+  <input (matChipInputTokenEnd)="addTag($event)"
+         [matChipInputAddOnBlur]="addOnBlur"
+         [matChipInputFor]="chipGrid"
+         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+         placeholder="New tag..."/>
+</mat-chip-grid>
+
+<div (input)="onContentChange($event)"
+     class="text-editor"
+     contenteditable="true"
+     dir="ltr"
+>
+  {{note.description}}
+
 </div>
 
 

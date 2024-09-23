@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './auth/auth.component';
-import { NoteListComponent } from './note-container/note-list/note-list.component';
 import { NoteEditorComponent } from './note-container/note-editor/note-editor.component';
-import { NoteViewerComponent } from './note-container/note-viewer/note-viewer.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { SignupComponent } from './auth/components/signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -27,22 +25,28 @@ import { DeleteCardComponent } from './note-container/delete-card/delete-card.co
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
-
-
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {authReducer} from "./states/auth.reducer";
+import { ShareNoteComponent } from './note-container/share-note/share-note.component';
+import { FilterByTagPipe } from './pipes/filter-by-tag.pipe';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    NoteListComponent,
     NoteEditorComponent,
-    NoteViewerComponent,
     LoginComponent,
     SignupComponent,
     NoteContainerComponent,
     NoteCardComponent,
     CreateCardComponent,
-    DeleteCardComponent
+    DeleteCardComponent,
+    ShareNoteComponent,
+    FilterByTagPipe,
+
   ],
   imports: [
     BrowserModule,
@@ -71,8 +75,13 @@ import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
         appId: "1:125625170579:web:688156179186a14c34ab66"
       }),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
-
+    AngularFireDatabaseModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreModule.forRoot({auth: authReducer}),
+    MatCardModule,
+    MatSnackBarModule
 
   ],
   providers: [],

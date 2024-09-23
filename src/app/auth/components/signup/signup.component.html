@@ -1,6 +1,6 @@
 <mat-card appearance="outlined">
   <mat-card-header><h1>Sign up</h1></mat-card-header>
-  <form class="example-form"  [formGroup]="registerForm"  (ngSubmit)="onSubmitForSignup()" >
+  <form class="example-form"  [formGroup]="registerForm"  >
     <mat-form-field class="example-full-width">
       <mat-label>User Name</mat-label>
       <input
@@ -15,17 +15,30 @@
       <mat-label>Email</mat-label>
       <input type="email" matInput
              placeholder="Ex. pat@example.com" formControlName="email">
+
+      <mat-error *ngIf="registerForm.get('email')!.invalid && registerForm.get('email')!.touched">
+        <div class="hint-error" *ngIf="registerForm.get('email')!.hasError('required')">Email is required.</div>
+      </mat-error>
     </mat-form-field>
+
+
     <mat-form-field  class="example-full-width">
       <mat-label>Enter your password</mat-label>
-      <input matInput formControlName="password" />
+      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
+      <mat-error *ngIf="registerForm.get('password')?.hasError('weakPassword') && registerForm.get('password')?.touched">
+        Password must be at least 8 characters long, contain at least one uppercase letter and one number.
+      </mat-error>
       <button
         mat-icon-button
         matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
       >
-        <mat-icon>{{ 'visibility_off'}}</mat-icon>
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
+
     <button mat-flat-button  routerLink="login" (click)="proceedAfterSignUp()" >Create Account</button>
   </form>
   <div class="example-button-row">

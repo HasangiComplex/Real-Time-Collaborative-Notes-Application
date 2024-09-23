@@ -2,30 +2,31 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {NoteService} from "../services/note-management-service/note.service";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {MatChipInputEvent} from "@angular/material/chips";
+import {MatChipEditedEvent, MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-
 
 @Component({
   selector: 'app-note-editor',
   templateUrl: './note-editor.component.html',
   styleUrls: ['./note-editor.component.scss']
 })
-export class NoteEditorComponent implements OnInit{
+export class NoteEditorComponent implements OnInit {
   noteId!: string;
   note: any; // To store the retrieved note
   editorContent: string = '';
-  tags: any[] = [];
+  // tags: any[] = [];
+  tags: { [key: number]: string } = {};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
-  constructor(private route: ActivatedRoute ,
-              private noteService: NoteService ,
+  constructor(private route: ActivatedRoute,
+              private noteService: NoteService,
               private auth: AngularFireAuth,
-              private router:Router,
+              private router: Router,
               private db: AngularFireDatabase
-              ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.checkAuthorization();
@@ -36,7 +37,7 @@ export class NoteEditorComponent implements OnInit{
     this.auth.authState.subscribe(user => {
       if (!user) {
         this.router.navigate(['login']);
-      }else{
+      } else {
         // Access the note id from the route parameters
         this.route.paramMap.subscribe(params => {
           this.noteId = params.get('id') as string;
@@ -53,7 +54,7 @@ export class NoteEditorComponent implements OnInit{
     this.noteService.getNoteById(id).subscribe(note => {
       this.note = note;
 
-      this.tags = note.tags
+      this.tags = note.tags || [];
     });
   }
 
@@ -74,20 +75,44 @@ export class NoteEditorComponent implements OnInit{
     return tempDiv.innerText || tempDiv.textContent || '';
   }
 
-
   goBack() {
     this.router.navigate(['/note-container']);
   }
 
-  isRtl(text: string): boolean {
-    // A simple check for RTL characters (e.g., Arabic, Hebrew)
-    const rtlChars = /[\u0591-\u07FF]/; // Range for Hebrew and Arabic characters
-    return rtlChars.test(text);
-  }
   updateTitle() {
     if (this.note) {
       // Update the note title in Firebase
-      this.db.object(`notes/${this.note.id}`).update({ title: this.note.title });
+      this.db.object(`notes/${this.note.id}`).update({title: this.note.title});
     }
   }
+
+  addTag(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value.trim();
+
+    if (value) {
+      const index = Object.keys(this.tags).length; // Get the next index
+      this.tags[index] = value; // Add the new tag to the object
+      this.updateTagsInFirebase(); // Update in Firebase
+    }
+    // Clear the input
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeTag(index: string): void {
+    // @ts-ignore
+    delete this.tags[index]; // Remove the tag from the object
+    this.updateTagsInFirebase(); // Update in Firebase
+  }
+
+  updateTagsInFirebase(): void {
+    if (this.note) {
+      this.db.object(`notes/${this.note.id}/tags`).set(this.tags).catch(error => {
+        console.error("Error updating tags: ", error);
+      });
+    }
+  }
+
 }

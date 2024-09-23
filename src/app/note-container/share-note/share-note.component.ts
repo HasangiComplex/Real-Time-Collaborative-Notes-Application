@@ -1,9 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AuthorizedUserService} from "../services/user-management-service/authorized-user.service";
 import {User} from "../note-interfaces/user";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CreateCardComponent} from "../create-card/create-card.component";
 
 @Component({
   selector: 'app-share-note',
@@ -18,7 +20,9 @@ export class ShareNoteComponent implements OnInit{
   constructor(private fb: FormBuilder,
               private db: AngularFireDatabase,
               @Inject(MAT_DIALOG_DATA) public data: { noteId: string },
-              private authorizedUserService:AuthorizedUserService
+              private authorizedUserService:AuthorizedUserService,
+              private snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<CreateCardComponent>
   ) {
     this.shareNoteForm = this.fb.group({
       selectedUsers: [[]]  // Starts with an empty array for multi-select options
@@ -31,29 +35,31 @@ export class ShareNoteComponent implements OnInit{
     });
     }
 
-
-
-
-
-
-
   shareForUser() {
     const selectedUsers = this.shareNoteForm.get('selectedUsers')?.value;
-
     // Assuming the note is stored at a specific database path, such as 'notes/{noteId}'
-    const noteId = this.data.noteId;  // Replace this with the actual note ID
-
+    const noteId = this.data.noteId;
     // Reference to the note in the Firebase Realtime Database
     const noteRef = this.db.object(`/notes/${noteId}`);
-
     // Update the note with the new shared users
     noteRef.update({ shared_users: selectedUsers })
       .then(() => {
-        console.log('Shared users successfully updated');
+        this.showToast('User Added!', 'success-toast');
+        this.dialogRef.close(true);
       })
       .catch((error) => {
-        console.error('Error updating shared users:', error);
+        this.showToast('Error occured,When adding the user!', 'error-toast');
       });
+  }
+
+
+  private showToast(message: string, cssClass: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+      panelClass: cssClass, // Custom class for styling
+    });
   }
 
 

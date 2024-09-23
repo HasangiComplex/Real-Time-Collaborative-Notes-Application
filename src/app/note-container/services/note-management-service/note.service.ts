@@ -4,6 +4,7 @@ import {map, Observable, switchMap} from 'rxjs';
 import {Store} from "@ngrx/store";
 import {AuthState} from "../../../states/auth.reducer";
 import {selectUserId} from "../../../states/auth.selectors";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ import {selectUserId} from "../../../states/auth.selectors";
 export class NoteService {
   userId$: Observable<string | null>;
   constructor(private db: AngularFireDatabase,
-              private store: Store<AuthState>) {
+              private store: Store<AuthState>,
+              private snackBar: MatSnackBar) {
     this.userId$ = this.store.select(selectUserId);
   }
 
@@ -21,32 +23,6 @@ export class NoteService {
       .then(() => console.log('Note added successfully!'))
       .catch((error) => console.error('Error adding note: ', error));
   }
-
-
-  // getNotes(): Observable<any[]> {
-  //   return this.userId$.pipe(
-  //     switchMap(userId => {
-  //       // Retrieve all notes
-  //       return this.db.list('notes').snapshotChanges().pipe(
-  //         map(changes =>
-  //           changes.map(c => {
-  //             const note: any = c.payload.val();
-  //             const sharedUsers = note?.shared_users || {}; // Adjusted key to match your structure
-  //             const createdByUser = note.created_user === userId;
-  //             const sharedWithUser = Object.values(sharedUsers).includes(userId);
-  //
-  //             // Return the note if created by the user or shared with the user
-  //             if (createdByUser || sharedWithUser) {
-  //               return { id: c.payload.key, ...(note || {}) };
-  //             } else {
-  //               return null; // Exclude this note
-  //             }
-  //           }).filter(note => note !== null) // Filter out null notes
-  //         )
-  //       );
-  //     })
-  //   );
-  // }
 
   getNotes(): Observable<any[]> {
     return this.userId$.pipe(
@@ -81,7 +57,6 @@ export class NoteService {
       })
     );
 
-
   }
 
 
@@ -97,7 +72,14 @@ export class NoteService {
   }
 
   updateNoteContent(noteId: string, content: string): void {
-    this.db.object(`notes/${noteId}`).update({ description: content });
+    this.db.object(`notes/${noteId}`).update({ description: content })
+      .then(() => {
+        this.showToast('Content updates.', 'success-toast');
+      })
+      .catch((error) => {
+        console.error("Error updating title: ", error);
+        this.showToast('Error Occured!.Cannot update Content.', 'error-toast');
+      });
   }
 
   // Update tags in the note
@@ -113,5 +95,12 @@ export class NoteService {
       .catch(error => console.error('Error deleting note:', error));
   }
 
-
+  private showToast(message: string, cssClass: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+      panelClass: cssClass, // Custom class for styling
+    });
+  }
 }

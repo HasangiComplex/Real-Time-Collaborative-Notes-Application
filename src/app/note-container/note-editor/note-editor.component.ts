@@ -5,6 +5,7 @@ import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {MatChipEditedEvent, MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-note-editor',
@@ -24,7 +25,8 @@ export class NoteEditorComponent implements OnInit {
               private noteService: NoteService,
               private auth: AngularFireAuth,
               private router: Router,
-              private db: AngularFireDatabase
+              private db: AngularFireDatabase,
+              private snackBar: MatSnackBar,
   ) {
   }
 
@@ -82,7 +84,14 @@ export class NoteEditorComponent implements OnInit {
   updateTitle() {
     if (this.note) {
       // Update the note title in Firebase
-      this.db.object(`notes/${this.note.id}`).update({title: this.note.title});
+      this.db.object(`notes/${this.note.id}`).update({title: this.note.title})
+        .then(() => {
+          this.showToast('Title updated successfully.', 'success-toast');
+        })
+        .catch((error) => {
+          console.error("Error updating title: ", error);
+          this.showToast('Error Occurred! Unable to update title.', 'error-toast');
+        });
     }
   }
 
@@ -109,10 +118,23 @@ export class NoteEditorComponent implements OnInit {
 
   updateTagsInFirebase(): void {
     if (this.note) {
-      this.db.object(`notes/${this.note.id}/tags`).set(this.tags).catch(error => {
-        console.error("Error updating tags: ", error);
+      this.db.object(`notes/${this.note.id}/tags`).set(this.tags)
+        .then(() => {
+          this.showToast('Tags updated successfully.', 'success-toast');
+        })
+        .catch(error => {
+          this.showToast('Error Occurred! Unable to update tags.', 'error-toast');
       });
     }
+  }
+
+  private showToast(message: string, cssClass: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+      panelClass: cssClass, // Custom class for styling
+    });
   }
 
 }

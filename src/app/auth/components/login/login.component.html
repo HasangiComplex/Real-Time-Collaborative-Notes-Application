@@ -1,6 +1,6 @@
 <mat-card appearance="outlined">
   <mat-card-header><h1>User Login</h1></mat-card-header>
-  <form class="example-form" [formGroup]="loginForm"  (ngSubmit)="onSubmitForLogin()">
+  <form class="example-form" [formGroup]="loginForm" >
 
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
@@ -9,8 +9,6 @@
 
           <mat-error *ngIf="loginForm.get('email')!.invalid && loginForm.get('email')!.touched">
             <div class="hint-error" *ngIf="loginForm.get('email')!.hasError('required')">Email is required.</div>
-      <!--      <span *ngIf="loginForm.get('email')!.errors?.required">Email is required.</span>-->
-      <!--      <span *ngIf="loginForm.get('email')!.errors?.email">Invalid email format.</span>-->
           </mat-error>
 
     </mat-form-field>

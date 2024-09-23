@@ -102,15 +102,5 @@ describe('LoginComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['viewNotes']);
   });
 
-  it('should log form values on submit', () => {
-    spyOn(console, 'log');
-    component.loginForm.controls['email'].setValue('test@example.com');
-    component.loginForm.controls['password'].setValue('password123');
 
-    component.onSubmitForLogin();
-    expect(console.log).toHaveBeenCalledWith('Login Successful', {
-      email: 'test@example.com',
-      password: 'password123'
-    });
-  });
 });

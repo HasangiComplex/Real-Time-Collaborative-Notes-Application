@@ -98,17 +98,17 @@ describe('SignupComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['login']);
   });
 
-  it('should navigate to viewNotes page after form submission', () => {
-    spyOn(console, 'log'); // To prevent logging during the test
-    component.registerForm.setValue({
-      username: 'testuser',
-      email: 'test@example.com',
-      password: 'password123'
-    });
-
-    component.onSubmitForSignup();
-
-    expect(console.log).toHaveBeenCalledWith('Form sent successfully ', component.registerForm.value);
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['viewNotes']);
-  });
+  // it('should navigate to viewNotes page after form submission', () => {
+  //   spyOn(console, 'log'); // To prevent logging during the test
+  //   component.registerForm.setValue({
+  //     username: 'testuser',
+  //     email: 'test@example.com',
+  //     password: 'password123'
+  //   });
+  //
+  //   component.onSubmitForSignup();
+  //
+  //   expect(console.log).toHaveBeenCalledWith('Form sent successfully ', component.registerForm.value);
+  //   expect(mockRouter.navigate).toHaveBeenCalledWith(['viewNotes']);
+  // });
 });

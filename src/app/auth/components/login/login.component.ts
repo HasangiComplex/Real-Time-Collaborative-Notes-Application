@@ -46,12 +46,6 @@ export class LoginComponent {
     this.router.navigate(['register'])
   }
 
-  onSubmitForLogin() {
-    console.log("Login Successful",this.loginForm.value);
-    // this.router.navigate(['viewNotes']);
-  }
-
-
   private showToast(message: string, cssClass: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
@@ -59,6 +53,15 @@ export class LoginComponent {
       horizontalPosition: 'right',
       panelClass: cssClass, // Custom class for styling
     });
+  }
+
+
+  private passwordValidator(control: any) {
+    const value = control.value;
+    if (value && (value.length < 8 || !/[A-Z]/.test(value) || !/[0-9]/.test(value))) {
+      return { weakPassword: true };
+    }
+    return null;
   }
 
 }

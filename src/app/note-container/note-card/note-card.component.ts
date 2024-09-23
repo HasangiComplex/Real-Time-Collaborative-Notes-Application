@@ -1,11 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DeleteCardComponent} from "../delete-card/delete-card.component";
 import {map, Observable} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {NoteService} from "../services/note-management-service/note.service";
 import {ShareNoteComponent} from "../share-note/share-note.component";
 import {FilterByTagPipe} from "../../pipes/filter-by-tag.pipe";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CreateCardComponent} from "../create-card/create-card.component";
 
 
 @Component({
@@ -20,6 +22,8 @@ export class NoteCardComponent implements OnInit{
   constructor(public dialog: MatDialog ,
               private db: AngularFireDatabase ,
               private noteService: NoteService,
+              private snackBar: MatSnackBar,
+
 
   ) {}
 
@@ -28,8 +32,12 @@ export class NoteCardComponent implements OnInit{
   }
 
   deleteNote(noteId: string): void {
-    this.noteService.deleteNote(noteId).then(() => {
-    });
+    this.noteService.deleteNote(noteId) .then(() => {
+      this.showToast('Note deleted successfully.', 'success-toast');
+    })
+      .catch((error) => {
+        this.showToast('Error Occurred! Unable to delete.', 'error-toast');
+      });
   }
 
   openDeleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -64,6 +72,16 @@ export class NoteCardComponent implements OnInit{
       if (result) {
         console.log('User confirmed:', result);
       }
+    });
+  }
+
+
+  private showToast(message: string, cssClass: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+      panelClass: cssClass, // Custom class for styling
     });
   }
 }

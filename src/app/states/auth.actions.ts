@@ -5,4 +5,7 @@ export const loginSuccess = createAction(
   props<{ uid: string; email: string }>()
 );
 
-export const logout = createAction('[Auth] Logout');
+export const logout = createAction(
+  '[Auth] Logout',
+  props<{ uid: string }>()
+);

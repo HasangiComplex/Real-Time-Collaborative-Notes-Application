@@ -51,10 +51,33 @@ export class NoteContainerComponent implements OnInit{
   }
 
 
+  // logout() {
+  //   return this.auth.signOut().then(() => {
+  //     this.store.dispatch(logout());
+  //     this.router.navigate(['login'])
+  //   });
+  // }
+
   logout() {
-    return this.auth.signOut().then(() => {
-      this.store.dispatch(logout());
-      this.router.navigate(['login'])
+    // Ensure `this.auth.currentUser` resolves to a user
+    return this.auth.currentUser.then((user) => {
+      const userId = user?.uid;
+
+      if (userId) {
+        return this.auth.signOut().then(() => {
+          // Dispatch the logout action for this specific user
+          this.store.dispatch(logout({ uid: userId }));
+          this.router.navigate(['login']);
+        });
+      } else {
+        console.error('No user is currently logged in.');
+        return Promise.resolve(); // Ensuring a return value in case no user is logged in
+      }
+    }).catch(error => {
+      console.error('Error during logout:', error);
+      return Promise.reject(error); // Ensuring a return value for the error case
     });
   }
+
+
 }

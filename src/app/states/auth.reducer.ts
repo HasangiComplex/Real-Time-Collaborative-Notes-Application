@@ -18,5 +18,14 @@ export const authReducer = createReducer(
     uid,
     email,
   })),
-  on(logout, () => initialState)
+  // on(logout, () => initialState)
+  // Update logout to check for user ID
+  on(logout, (state, { uid }) => {
+    // If the userId matches the currently logged-in user, reset the state
+    if (state.uid === uid) {
+      return initialState;
+    } else {
+      return state; // Keep the state as is if it's a different user
+    }
+  })
 );

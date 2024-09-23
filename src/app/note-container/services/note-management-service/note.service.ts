@@ -80,6 +80,8 @@ export class NoteService {
         );
       })
     );
+
+
   }
 
 
@@ -96,6 +98,11 @@ export class NoteService {
 
   updateNoteContent(noteId: string, content: string): void {
     this.db.object(`notes/${noteId}`).update({ description: content });
+  }
+
+  // Update tags in the note
+  updateNoteTags(noteId: string, tags: any[]): void {
+    this.db.object('notes/${noteId}').update({ tags: tags });
   }
 
 

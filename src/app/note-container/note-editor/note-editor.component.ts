@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {NoteService} from "../services/note-management-service/note.service";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
+import {MatChipInputEvent} from "@angular/material/chips";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
 
 
 @Component({
@@ -13,7 +15,9 @@ export class NoteEditorComponent implements OnInit{
   noteId!: string;
   note: any; // To store the retrieved note
   editorContent: string = '';
-
+  tags: any[] = [];
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor(private route: ActivatedRoute ,
               private noteService: NoteService ,
@@ -46,14 +50,30 @@ export class NoteEditorComponent implements OnInit{
   getNoteById(id: string): void {
     this.noteService.getNoteById(id).subscribe(note => {
       this.note = note;
-      console.log(this.note); // You can use this.note in your template now
+
+      this.tags = note.tags
     });
   }
 
   onContentChange(event: any) {
-    this.editorContent = event.target.innerHTML;  // Capture HTML content
-    this.note.description = this.editorContent; // Update local note content
-    this.noteService.updateNoteContent(this.noteId, this.editorContent); // Save to Firebase
+    // Capture HTML content
+    const htmlContent = event.target.innerHTML;
+    // Convert HTML to plain text
+    this.editorContent = this.stripHtml(htmlContent);
+    // Update local note content
+    this.note.description = this.editorContent;
+    // Save to Firebase
+    this.noteService.updateNoteContent(this.noteId, this.editorContent);
   }
 
+  private stripHtml(html: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    return tempDiv.innerText || tempDiv.textContent || '';
+  }
+
+
+  goBack() {
+    this.router.navigate(['/note-container']);
+  }
 }

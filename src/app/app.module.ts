@@ -82,7 +82,8 @@ import { FilterByTagPipe } from './pipes/filter-by-tag.pipe';
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    StoreModule.forRoot({auth: authReducer})
+    StoreModule.forRoot({auth: authReducer}),
+    MatCardModule,
 
   ],
   providers: [],

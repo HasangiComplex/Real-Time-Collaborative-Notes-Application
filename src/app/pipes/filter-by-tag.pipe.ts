@@ -10,7 +10,15 @@ export class FilterByTagPipe implements PipeTransform {
     }
 
     searchQuery = searchQuery.toLowerCase();
+    console.log(searchQuery)
     // Filter notes by title or tag name
+    // return notes.filter(note =>
+    //   note.title.toLowerCase().includes(searchQuery) ||
+    //   note.tags.some((tag: string) =>
+    //     tag.toLowerCase().includes(searchQuery)
+    //   )
+    // );
+
     return notes.filter(note =>
       note.title.toLowerCase().includes(searchQuery) ||
       note.tags.some((tag: string) =>

@@ -4,6 +4,7 @@ import {NoteService} from "../services/note-management-service/note.service";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class NoteEditorComponent implements OnInit{
   constructor(private route: ActivatedRoute ,
               private noteService: NoteService ,
               private auth: AngularFireAuth,
-              private router:Router
+              private router:Router,
+              private db: AngularFireDatabase
               ) {}
 
   ngOnInit(): void {
@@ -75,5 +77,17 @@ export class NoteEditorComponent implements OnInit{
 
   goBack() {
     this.router.navigate(['/note-container']);
+  }
+
+  isRtl(text: string): boolean {
+    // A simple check for RTL characters (e.g., Arabic, Hebrew)
+    const rtlChars = /[\u0591-\u07FF]/; // Range for Hebrew and Arabic characters
+    return rtlChars.test(text);
+  }
+  updateTitle() {
+    if (this.note) {
+      // Update the note title in Firebase
+      this.db.object(`notes/${this.note.id}`).update({ title: this.note.title });
+    }
   }
 }

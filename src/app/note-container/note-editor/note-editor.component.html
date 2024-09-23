@@ -2,10 +2,15 @@
   <button color="primary" mat-raised-button (click)="goBack()">Back</button>
 </div>
 <div *ngIf="note">
-  <h1>Note Title: {{ note.title }}</h1>
+<!--  <h1>Note Title: {{ note.title }}</h1>-->
+  <input [(ngModel)]="note.title" (ngModelChange)="updateTitle()" placeholder="Note Title" />
 </div>
 
-<div (input)="onContentChange($event)" class="text-editor" contenteditable="true">
+<div (input)="onContentChange($event)"
+     class="text-editor"
+     contenteditable="true"
+     dir="ltr"
+   >
 {{note.description}}
 <!--{{ note.description === '' ? "Start typing here..." : note.description }}-->
 </div>

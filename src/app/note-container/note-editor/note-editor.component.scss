@@ -18,3 +18,7 @@
     height: 70vh; /* Adjust height for smaller screens */
   }
 }
+.text-editor {
+  direction: ltr; /* Force left-to-right direction */
+  text-align: left; /* Align text to the left */
+}

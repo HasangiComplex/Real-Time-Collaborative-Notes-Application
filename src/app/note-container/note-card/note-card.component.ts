@@ -29,7 +29,6 @@ export class NoteCardComponent implements OnInit{
 
   deleteNote(noteId: string): void {
     this.noteService.deleteNote(noteId).then(() => {
-      console.log('Note deleted successfully');
     });
   }
 
@@ -56,7 +55,6 @@ export class NoteCardComponent implements OnInit{
 
 
   openShareForUserView(noteId: string) {
-    console.log('Dialog Open Triggered with noteId:', noteId);
     const dialogRef = this.dialog.open(ShareNoteComponent, {
       width: '300px',
       data: { noteId: noteId } // Passing the noteId as data to the dialog

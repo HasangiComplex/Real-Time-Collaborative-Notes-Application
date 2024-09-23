@@ -32,8 +32,8 @@
 <!--</ng-template>-->
 
 <div *ngIf="notes$ | async as notes; else loading">
-  <!-- Apply the filterByTagOrTitle pipe here and bind it to the searchQuery -->
-  <ng-container *ngFor="let note of notes |  filterByTag: searchQuery">
+  <div *ngIf="notes.length > 0; else noNotes">
+  <ng-container *ngFor="let note of notes ">
     <mat-card class="example-card" appearance="outlined">
       <mat-icon matListItemIcon>note</mat-icon>
       <mat-card-header>
@@ -63,13 +63,20 @@
 
       <mat-card-footer class="example-card-footer">
         <mat-chip-set aria-label="Note tags">
-          <mat-chip *ngFor="let tag of note.tags">{{ tag }}</mat-chip>
+          <mat-chip *ngFor="let tag of note?.tags">{{ tag }}</mat-chip>
         </mat-chip-set>
       </mat-card-footer>
     </mat-card>
   </ng-container>
+    </div>
 </div>
 
+<!-- 'Loading' template -->
 <ng-template #loading>
   <p>Loading notes...</p>
+</ng-template>
+
+<!-- 'No notes' template -->
+<ng-template #noNotes>
+  <p>No notes available.</p>
 </ng-template>

@@ -11,6 +11,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class NoteService {
   userId$: Observable<string | null>;
+
   constructor(private db: AngularFireDatabase,
               private store: Store<AuthState>,
               private snackBar: MatSnackBar) {
@@ -42,37 +43,33 @@ export class NoteService {
                 sharedOthers: Object.keys(sharedUsers).length > 0,
                 sharedWithMe: sharedWithUser,
               };
-
               // Return the note object
-              return { noteWithFlags, createdByUser, sharedWithUser };
+              return {noteWithFlags, createdByUser, sharedWithUser};
             })
           )
         ).pipe(
           map(noteData =>
             noteData
-              .filter(({ createdByUser, sharedWithUser }) => createdByUser || sharedWithUser)
-              .map(({ noteWithFlags }) => noteWithFlags)
+              .filter(({createdByUser, sharedWithUser}) => createdByUser || sharedWithUser)
+              .map(({noteWithFlags}) => noteWithFlags)
           )
         );
       })
     );
-
   }
-
-
 
   // Retrieve a note by its id
   getNoteById(id: string): Observable<any> {
     return this.db.object(`notes/${id}`).snapshotChanges().pipe(
       map(c => {
         const note = c.payload.val();
-        return { id: c.payload.key, ...(note || {}) }; // Spread only if note is not null
+        return {id: c.payload.key, ...(note || {})}; // Spread only if note is not null
       })
     );
   }
 
   updateNoteContent(noteId: string, content: string): void {
-    this.db.object(`notes/${noteId}`).update({ description: content })
+    this.db.object(`notes/${noteId}`).update({description: content})
       .then(() => {
         this.showToast('Content updates.', 'success-toast');
       })
@@ -81,12 +78,6 @@ export class NoteService {
         this.showToast('Error Occured!.Cannot update Content.', 'error-toast');
       });
   }
-
-  // Update tags in the note
-  updateNoteTags(noteId: string, tags: any[]): void {
-    this.db.object('notes/${noteId}').update({ tags: tags });
-  }
-
 
   // Delete a note
   deleteNote(noteId: string): Promise<void> {

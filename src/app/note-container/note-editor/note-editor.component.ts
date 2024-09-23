@@ -47,7 +47,7 @@ export class NoteEditorComponent implements OnInit {
           this.getNoteById(this.noteId);
         });
       }
-      // Optionally: Add further checks to determine if the user is authorized.
+
     });
   }
 
@@ -124,7 +124,7 @@ export class NoteEditorComponent implements OnInit {
         })
         .catch(error => {
           this.showToast('Error Occurred! Unable to update tags.', 'error-toast');
-      });
+        });
     }
   }
 

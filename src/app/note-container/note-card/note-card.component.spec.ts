@@ -88,39 +88,4 @@ describe('NoteCardComponent', () => {
     });
   });
 
-  // it('should handle the delete dialog result', () => {
-  //   const dialogRefMock = { afterClosed: () => of(true) }; // Mocking the dialog reference
-  //   mockDialog.open.and.returnValue(dialogRefMock);
-  //
-  //   component.addNote(); // This should open the delete dialog
-  //
-  //   expect(mockDialog.open).toHaveBeenCalledWith(DeleteCardComponent, {
-  //     width: '300px',
-  //   });
-  //
-  //   // Simulate closing the dialog
-  //   dialogRefMock.afterClosed().subscribe(result => {
-  //     expect(result).toBe(true);
-  //     console.log('User confirmed:', result); // Ensure this gets logged
-  //   });
-  // });
-
-  // it('should open share dialog with correct noteId', () => {
-  //   const noteId = 'test-note-id';
-  //   const dialogRefMock = { afterClosed: () => of(true) };
-  //   mockDialog.open.and.returnValue(dialogRefMock);
-  //
-  //   component.openShareForUserView(noteId);
-  //
-  //   expect(mockDialog.open).toHaveBeenCalledWith(ShareNoteComponent, {
-  //     width: '300px',
-  //     data: { noteId: noteId },
-  //   });
-  //
-  //   // Simulate closing the dialog
-  //   dialogRefMock.afterClosed().subscribe(result => {
-  //     expect(result).toBe(true);
-  //     console.log('User confirmed:', result); // Ensure this gets logged
-  //   });
-  // });
 });

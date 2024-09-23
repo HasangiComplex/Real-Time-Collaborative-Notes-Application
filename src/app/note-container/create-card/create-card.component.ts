@@ -50,19 +50,6 @@ export class CreateCardComponent implements OnInit {
   }
 
   onConfirm(): void {
-    // // this.dialogRef.close(true); // Passes data to the parent if needed
-    // const noteData = {
-    //   title: this.createNoteForm.value.title,
-    //   description: this.createNoteForm.value.description,
-    //   tags: this.tags.map(tag => tag.name),
-    //   created_user:this.userId$,
-    //   shared_users: []
-    //
-    // };
-    // this.noteService.createNote(noteData).then(() => {
-    //   this.dialogRef.close(true)
-    // })
-
     if (this.createNoteForm.invalid || this.tags.length === 0) {
       this.showToast('Invalid attempt. You must fill the form.', 'error-toast');
       return;
@@ -76,10 +63,6 @@ export class CreateCardComponent implements OnInit {
         created_user: userId, // Append the userId from the observable
         shared_users: []
       };
-
-      // this.noteService.createNote(noteData).then(() => {
-      //   this.dialogRef.close(true);
-      // });
 
 
       this.noteService.createNote(noteData)
@@ -140,7 +123,6 @@ export class CreateCardComponent implements OnInit {
     // Update the form control for tags
     this.createNoteForm.get('tags')?.setValue(this.tags);
   }
-
 
   private showToast(message: string, cssClass: string) {
     this.snackBar.open(message, 'Close', {

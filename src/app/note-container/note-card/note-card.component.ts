@@ -1,13 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {DeleteCardComponent} from "../delete-card/delete-card.component";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {NoteService} from "../services/note-management-service/note.service";
 import {ShareNoteComponent} from "../share-note/share-note.component";
-import {FilterByTagPipe} from "../../pipes/filter-by-tag.pipe";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {CreateCardComponent} from "../create-card/create-card.component";
 
 
 @Component({

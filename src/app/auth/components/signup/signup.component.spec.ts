@@ -1,26 +1,4 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
-//
-// import { SignupComponent } from './signup.component';
-//
-// describe('SignupComponent', () => {
-//   let component: SignupComponent;
-//   let fixture: ComponentFixture<SignupComponent>;
-//
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       declarations: [ SignupComponent ]
-//     })
-//     .compileComponents();
-//
-//     fixture = TestBed.createComponent(SignupComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
-//
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -98,17 +76,4 @@ describe('SignupComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['login']);
   });
 
-  // it('should navigate to viewNotes page after form submission', () => {
-  //   spyOn(console, 'log'); // To prevent logging during the test
-  //   component.registerForm.setValue({
-  //     username: 'testuser',
-  //     email: 'test@example.com',
-  //     password: 'password123'
-  //   });
-  //
-  //   component.onSubmitForSignup();
-  //
-  //   expect(console.log).toHaveBeenCalledWith('Form sent successfully ', component.registerForm.value);
-  //   expect(mockRouter.navigate).toHaveBeenCalledWith(['viewNotes']);
-  // });
 });

@@ -15,24 +15,22 @@ import {Router} from "@angular/router";
 })
 export class NoteContainerComponent implements OnInit{
   @Output() searchQueryChange = new EventEmitter<string>();
-  searchQuery: string = '';
-
-
-  constructor(private router:Router,private dialog: MatDialog , private auth: AngularFireAuth,private store: Store<AuthState>) {}
+  constructor(private router:Router,
+              private dialog: MatDialog ,
+              private auth: AngularFireAuth,
+              private store: Store<AuthState>) {}
   ngOnInit(): void {
     this.checkAuthorization();
   }
-
-
 
   private checkAuthorization(): void {
     this.auth.authState.subscribe(user => {
       if (!user) {
         this.router.navigate(['login']);
       }
-      // Optionally: Add further checks to determine if the user is authorized.
     });
   }
+
   addNote(): void {
     const dialogRef = this.dialog.open(CreateCardComponent, {
       width: '300px',
@@ -44,19 +42,6 @@ export class NoteContainerComponent implements OnInit{
       }
     });
   }
-
-  onSearchChange(query: string) {
-    // Handle the search logic here
-    this.searchQuery = query;
-  }
-
-
-  // logout() {
-  //   return this.auth.signOut().then(() => {
-  //     this.store.dispatch(logout());
-  //     this.router.navigate(['login'])
-  //   });
-  // }
 
   logout() {
     // Ensure `this.auth.currentUser` resolves to a user
@@ -70,14 +55,10 @@ export class NoteContainerComponent implements OnInit{
           this.router.navigate(['login']);
         });
       } else {
-        console.error('No user is currently logged in.');
         return Promise.resolve(); // Ensuring a return value in case no user is logged in
       }
     }).catch(error => {
-      console.error('Error during logout:', error);
       return Promise.reject(error); // Ensuring a return value for the error case
     });
   }
-
-
 }

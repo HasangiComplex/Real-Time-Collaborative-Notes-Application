@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder,FormGroup} from "@angular/forms";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AuthorizedUserService} from "../services/user-management-service/authorized-user.service";
@@ -52,7 +52,6 @@ export class ShareNoteComponent implements OnInit{
       });
   }
 
-
   private showToast(message: string, cssClass: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
@@ -61,6 +60,5 @@ export class ShareNoteComponent implements OnInit{
       panelClass: cssClass, // Custom class for styling
     });
   }
-
 
 }

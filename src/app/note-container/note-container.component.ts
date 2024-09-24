@@ -7,6 +7,8 @@ import {AuthState} from "../states/auth.reducer";
 import {Store} from "@ngrx/store";
 import { logout} from "../states/auth.actions";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {selectUserEmail, selectUserId} from "../states/auth.selectors";
 
 @Component({
   selector: 'app-note-container',
@@ -14,11 +16,18 @@ import {Router} from "@angular/router";
   styleUrls: ['./note-container.component.scss']
 })
 export class NoteContainerComponent implements OnInit{
+  userId$: Observable<string | null>;
+  userEmail$: Observable<string | null>;
   @Output() searchQueryChange = new EventEmitter<string>();
   constructor(private router:Router,
               private dialog: MatDialog ,
               private auth: AngularFireAuth,
-              private store: Store<AuthState>) {}
+              private store: Store<AuthState>) {
+
+    this.userId$ = this.store.select(selectUserId);
+    this.userEmail$ = this.store.select(selectUserEmail);
+
+  }
   ngOnInit(): void {
     this.checkAuthorization();
   }

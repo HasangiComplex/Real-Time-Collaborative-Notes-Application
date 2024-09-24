@@ -1,3 +1,65 @@
+.main-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.nav-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+
+  .left{
+    justify-content: flex-start;
+  }
+
+  .right{
+    justify-content: flex-end;
+    padding-right: 16px;
+  }
+}
+
+.sub-text{
+  font-size: large;
+}
+
+.app-name{
+  color: darkblue;
+}
+
+.app-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 100px;
+}
+
+.note{
+  width: calc((100vw - 80px)*0.25);
+  max-width: 280px;
+  height: 100px;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  font-size: large;
+  font-weight: bold;
+}
+
+.new-note{
+  background-color: rgba(0, 0, 139, 0.08);
+  border: 1px dashed rgba(0, 0, 139, 0.20);
+  color: rgba(0, 0, 139, 0.50);
+  box-shadow: none;
+}
+
+
 .example-card {
   max-width: 400px;
 }
@@ -26,3 +88,5 @@
 mat-form-field {
   width: 50%;
 }
+
+

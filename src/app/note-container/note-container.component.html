@@ -1,27 +1,40 @@
-<mat-toolbar>
-  <button aria-label="Example icon-button with menu icon" class="example-icon" mat-icon-button>
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Notes</span>
-
-  <span class="example-spacer"></span>
-  <button aria-label="Example icon-button with bell icon" class="example-icon favorite-icon" mat-icon-button>
-    <mat-icon>notifications</mat-icon>
-  </button>
-  <div (click)="logout()"><p>Logout</p></div>
-</mat-toolbar>
-<mat-grid-list cols="2">
-  <mat-grid-tile>
-    <div>
-      <div class="example-button-container">
-        <button (click)="addNote()" aria-label="Add note button" mat-mini-fab>
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-      <app-note-card></app-note-card>
+<div class="main-div">
+  <mat-toolbar class="nav-container">
+    <div class="nav-container left">
+      <button aria-label="Menu" class="example-icon" mat-icon-button disabled>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="app-name">Collaborative Notes</span>
     </div>
-  </mat-grid-tile>
-</mat-grid-list>
+    <div  class="nav-container right">
+      <!--  <div *ngIf="userId$ | async as userId">{{ userId }}</div>-->
+      <div *ngIf="userEmail$ | async as userEmail" class="sub-text">{{ userEmail }}</div>
+
+      <button aria-label="Notifications" class="example-icon favorite-icon" mat-icon-button disabled>
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <div (click)="logout()" routerLink="login"><span class="sub-text">Logout</span></div>
+    </div>
+<!--    <button aria-label="Example icon-button with bell icon" class="example-icon favorite-icon" mat-icon-button>-->
+<!--      <mat-icon>notifications</mat-icon>-->
+<!--    </button>-->
+<!--    <div (click)="logout()"><p>Logout</p></div>-->
+  </mat-toolbar>
+  <mat-grid-list cols="2" class="app-body">
+    <mat-grid-tile>
+      <div>
+        <div class="example-button-container">
+          <button (click)="addNote()" class="note new-note" aria-label="Add note button">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <app-note-card></app-note-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
 
 
 

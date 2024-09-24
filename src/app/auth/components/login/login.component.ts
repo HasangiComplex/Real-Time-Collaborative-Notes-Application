@@ -22,8 +22,6 @@ export class LoginComponent {
     password: ['',Validators.required],
   })
 
-
-
   // Firebase authentication for login
   proceedAfterLogin() {
     this.authenticationService.signIn({
@@ -54,7 +52,6 @@ export class LoginComponent {
     });
   }
 
-
   private passwordValidator(control: any) {
     const value = control.value;
     if (value && (value.length < 8 || !/[A-Z]/.test(value) || !/[0-9]/.test(value))) {
@@ -62,7 +59,6 @@ export class LoginComponent {
     }
     return null;
   }
-
 }
 
 

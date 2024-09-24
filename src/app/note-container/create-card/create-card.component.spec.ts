@@ -1,26 +1,3 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
-//
-// import { CreateCardComponent } from './create-card.component';
-//
-// describe('CreateCardComponent', () => {
-//   let component: CreateCardComponent;
-//   let fixture: ComponentFixture<CreateCardComponent>;
-//
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       declarations: [ CreateCardComponent ]
-//     })
-//     .compileComponents();
-//
-//     fixture = TestBed.createComponent(CreateCardComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
-//
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateCardComponent } from './create-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,6 +8,8 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../../states/auth.reducer';
 import {Observable, of} from 'rxjs';
 import { MatChipInputEvent, MatChipEditedEvent } from '@angular/material/chips';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('CreateCardComponent', () => {
   let component: CreateCardComponent;
@@ -49,13 +28,14 @@ describe('CreateCardComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [CreateCardComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule,MatSnackBarModule ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialogRef },
         { provide: AngularFireDatabase, useValue: {} },
         { provide: NoteService, useValue: mockNoteService },
         { provide: Store, useValue: mockStore },
-      ]
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   });
 

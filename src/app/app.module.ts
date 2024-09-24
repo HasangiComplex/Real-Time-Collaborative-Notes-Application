@@ -21,7 +21,6 @@ import { NoteCardComponent } from './note-container/note-card/note-card.componen
 import { CreateCardComponent } from './note-container/create-card/create-card.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
-import { DeleteCardComponent } from './note-container/delete-card/delete-card.component';
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
@@ -43,7 +42,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     NoteContainerComponent,
     NoteCardComponent,
     CreateCardComponent,
-    DeleteCardComponent,
     ShareNoteComponent,
     FilterByTagPipe,
 

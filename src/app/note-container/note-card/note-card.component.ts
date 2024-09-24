@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {DeleteCardComponent} from "../delete-card/delete-card.component";
 import {Observable} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {NoteService} from "../services/note-management-service/note.service";
@@ -37,28 +36,6 @@ export class NoteCardComponent implements OnInit{
         this.showToast('Error Occurred! Unable to delete.', 'error-toast');
       });
   }
-
-  openDeleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(DeleteCardComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-  }
-
-  addNote(): void {
-    console.log("clicked delete")
-    const dialogRef = this.dialog.open(DeleteCardComponent, {
-      width: '300px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('User confirmed:', result);
-      }
-    });
-  }
-
 
   openShareForUserView(noteId: string) {
     const dialogRef = this.dialog.open(ShareNoteComponent, {

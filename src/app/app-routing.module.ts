@@ -14,7 +14,6 @@ const routes: Routes = [
   {path:'edit/:id',component:NoteEditorComponent},
   {path:'note-container',component: NoteContainerComponent}
 
-
 ];
 
 @NgModule({

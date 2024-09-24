@@ -32,7 +32,6 @@ export class NoteEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkAuthorization();
-
   }
 
   private checkAuthorization(): void {
@@ -55,7 +54,6 @@ export class NoteEditorComponent implements OnInit {
   getNoteById(id: string): void {
     this.noteService.getNoteById(id).subscribe(note => {
       this.note = note;
-
       this.tags = note.tags || [];
     });
   }

@@ -38,6 +38,7 @@ export class CreateCardComponent implements OnInit {
     this.userId$ = this.store.select(selectUserId);
   }
 
+  //define a formGroup known as "createNoteForm"
   createNoteForm = this.fb.group({
     title: ['Title Goes here', Validators.required],
     description: [''],
@@ -46,7 +47,6 @@ export class CreateCardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("The login user", this.userId$)
   }
 
   onConfirm(): void {

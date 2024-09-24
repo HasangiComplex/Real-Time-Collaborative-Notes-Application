@@ -15,7 +15,8 @@ export class NoteService {
   constructor(private db: AngularFireDatabase,
               private store: Store<AuthState>,
               private snackBar: MatSnackBar) {
-    this.userId$ = this.store.select(selectUserId);
+
+              this.userId$ = this.store.select(selectUserId);
   }
 
   // Create a new note
@@ -35,7 +36,6 @@ export class NoteService {
               const sharedUsers = note?.shared_users || {};
               const createdByUser = note.created_user === userId;
               const sharedWithUser = Object.values(sharedUsers).includes(userId);
-
               // Create the note object with boolean flags
               const noteWithFlags = {
                 id: c.payload.key,
@@ -68,13 +68,14 @@ export class NoteService {
     );
   }
 
+  //Note content update
+  //The update() method in Firebase will only modify the provided fields, leaving other fields unchanged
   updateNoteContent(noteId: string, content: string): void {
     this.db.object(`notes/${noteId}`).update({description: content})
       .then(() => {
         this.showToast('Content updates.', 'success-toast');
       })
       .catch((error) => {
-        console.error("Error updating title: ", error);
         this.showToast('Error Occured!.Cannot update Content.', 'error-toast');
       });
   }

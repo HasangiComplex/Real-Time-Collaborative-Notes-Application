@@ -13,7 +13,6 @@ import {CreateCardComponent} from "../create-card/create-card.component";
   styleUrls: ['./share-note.component.scss']
 })
 export class ShareNoteComponent implements OnInit{
-
   authorizedUserList: { id: string | null; userData: User }[] = [];
   shareNoteForm: FormGroup;
 

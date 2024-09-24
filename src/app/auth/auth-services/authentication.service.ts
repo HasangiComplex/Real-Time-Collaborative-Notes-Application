@@ -57,9 +57,7 @@ export class AuthenticationService {
       })
       .catch((error) => {
         window.alert(error.message);
-      });
-  }
-
+      });}
 }
   type SignIn = {
     email: string;

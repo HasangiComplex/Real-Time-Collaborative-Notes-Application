@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {StoreModule} from "@ngrx/store";
+import {authReducer} from "./states/auth.reducer";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot(authReducer), // Make sure to import StoreModule
       ],
       declarations: [
         AppComponent
